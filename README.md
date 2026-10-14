@@ -2,9 +2,9 @@
 
 ## 状态 / Status
 
-**任务规格仓库，尚无算法实现或代码交付。私有数据集与独立盲测：NOT EVALUATED。**
+**任务规格与独立交付检查工具，尚无分割算法实现或外部代码交付。私有数据集与独立盲测：NOT EVALUATED。**
 
-**Specification only. No implementation or completed code delivery is included. Private-set and held-out evaluation: NOT EVALUATED.**
+**Task specification and independent artifact checks. No segmentation implementation or external code delivery is included. Private-set and held-out evaluation: NOT EVALUATED.**
 
 本仓库用于向 IMD Agent 或其他实现者交接一个独立的 Python 算法组件。完整要求见 [TASK.txt](TASK.txt)。仓库内的目标、接口与测试要求描述待完成工作，不代表功能已经实现。
 
@@ -42,7 +42,17 @@ Existing private source code, videos, evidence frames, transcripts, ground truth
 
 Real-set targets are per channel and class: type correctness at least 95%, split correctness at least 80%, and endpoint tolerance at most one second, with raw and floor reported separately. Synthetic tests and platform structural acceptance do not demonstrate these accuracy targets. The requester performs private-data, frozen-scorer and held-out evaluation locally; all such metrics remain **NOT EVALUATED** at this stage.
 
-## 初始文件 / Initial contents
+## 文件与检查 / Contents and checks
 
 - `README.md`: 当前状态、接入方法与交付边界 / status, handoff and delivery scope.
 - `TASK.txt`: 完整实现规格 / full implementation specification.
+
+- `acceptance/`: 独立、只读的结构验收工具与 16 项测试 / independent read-only artifact verifier and 16 tests.
+
+```sh
+python3 -B -m unittest discover -s acceptance -p 'test_*.py' -v
+```
+
+检查工具的输入、用法与局限见 [acceptance/README.md](acceptance/README.md)。它只检查文件合同，不证明分割算法或真实集准确率。
+
+See [acceptance/README.md](acceptance/README.md) for usage and limits. Passing structural checks does not demonstrate segmentation or real-set accuracy.
